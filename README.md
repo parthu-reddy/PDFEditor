@@ -11,6 +11,24 @@ A powerful, in-browser PDF editing tool built with React, TypeScript, and Vite. 
 - **AST Reflow:** Automatically parses the PDF Abstract Syntax Tree (AST) to push surrounding elements down when text expands.
 - **Offline / Client-Side Only:** All processing is done in the browser. No server required.
 
+## Demo
+
+Here is a full demonstration of the editor in action:
+
+![PDF Editor Demo](./public/demo.webp)
+
+## Functionality
+
+**1. Upload & Edit Text**
+Click on any text layer to activate the inline editing mode.
+
+![Editing Text](./public/pdf_editing.png)
+
+**2. Save & Compile**
+The application uses MuPDF to completely redact the old text and PDF-lib to typeset the new changes before downloading the final file.
+
+![Saved Document](./public/pdf_saved.png)
+
 ## Technical Architecture
 
 The project employs a dual-engine architecture:
