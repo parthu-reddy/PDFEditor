@@ -47,7 +47,7 @@ export async function extractPageTextBlocks(
   for (const item of textContent.items) {
     // pdfjs TextItem has a `str` field; TextMarkedContent does not
     if (!('str' in item)) continue;
-    const textItem = item as pdfjs.TextItem;
+    const textItem = item as any;
 
     const str = textItem.str.trim();
     if (!str) continue;

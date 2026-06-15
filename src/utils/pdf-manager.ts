@@ -144,7 +144,7 @@ export async function compilePdf(
     }
 
     if (appliedAny) {
-      processedBytes = doc.saveToBuffer("incremental").asUint8Array();
+      processedBytes = new Uint8Array(doc.saveToBuffer("incremental").asUint8Array());
     }
   }
 

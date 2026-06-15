@@ -6,10 +6,8 @@ import { TexLinebreak, MIN_COST } from 'tex-linebreak2';
 // Bypasses heavy OpenType shaping for raw metric calculations.
 // -----------------------------------------------------------------------------
 export class TypographicEngine {
-    private pdfDoc: PDFDocument;
-    
-    constructor(pdfDoc: PDFDocument) {
-        this.pdfDoc = pdfDoc;
+    constructor(_pdfDoc: PDFDocument) {
+        // unused
     }
 
     /**
@@ -146,7 +144,7 @@ export class ContentStreamCoordinator {
             });
         }
 
-        for (const { ref, stream } of streams) {
+        for (const { stream } of streams) {
             if (stream && stream instanceof PDFRawStream) {
                 const decoded = decodePDFRawStream(stream).decode();
                 let str = Array.from(decoded).map(b => String.fromCharCode(b)).join('');
@@ -183,7 +181,7 @@ export class ContentStreamCoordinator {
                 for (let i = 0; i < modifiedStr.length; i++) {
                     encoded[i] = modifiedStr.charCodeAt(i);
                 }
-                stream.contents = encoded;
+                (stream as any).contents = encoded;
                 if (stream.dict.has(PDFName.of('Filter'))) {
                     stream.dict.delete(PDFName.of('Filter'));
                 }

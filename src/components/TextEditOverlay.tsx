@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import type { PdfTextBlock } from '../utils/pdf-text-extractor';
 import type { Annotation } from '../utils/pdf-manager';
 
