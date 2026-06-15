@@ -1,73 +1,54 @@
-# PDFEditor
+# PDF Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A powerful, in-browser PDF editing tool built with React, TypeScript, and Vite. This application allows users to edit PDF text in-place, offering a true WYSIWYG experience without requiring a backend server.
 
-Currently, two official plugins are available:
+![PDF Editor Screenshot](./public/screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- **In-Place Text Editing:** Click on any text in the PDF to edit it directly on the canvas.
+- **Deep Redaction:** Uses MuPDF via WebAssembly to completely remove the old text from the binary structure, ensuring it cannot be recovered.
+- **Advanced Text Layout:** Implements Knuth-Plass line breaking algorithms to ensure beautiful text wrapping when modifying paragraphs.
+- **AST Reflow:** Automatically parses the PDF Abstract Syntax Tree (AST) to push surrounding elements down when text expands.
+- **Offline / Client-Side Only:** All processing is done in the browser. No server required.
 
-## React Compiler
+## Technical Architecture
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The project employs a dual-engine architecture:
+- **MuPDF (WASM):** Handles the physical redaction of original text blocks.
+- **PDF-lib:** Handles assembling the new document and typesetting the new text.
+- **PDF.js:** Used for frontend rendering and normalized coordinate extraction.
 
-## Expanding the ESLint configuration
+For a deeper dive into the technical implementation, please read the [Architecture Skill](.gemini/skills/pdf-editor-architecture/SKILL.md) document.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Quick Start
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Clone the repository and install the dependencies:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Running Locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Start the Vite development server:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Navigate to `http://localhost:5173/` in your browser.
+
+### Building for Production
+
+Compile TypeScript and build the application:
+
+```bash
+npm run build
+```
+
+The compiled assets will be placed in the `dist/` directory.
+
+## License
+MIT
